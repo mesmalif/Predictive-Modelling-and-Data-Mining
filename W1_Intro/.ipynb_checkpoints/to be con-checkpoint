@@ -1,0 +1,75 @@
+import numpy as np
+import pandas as pd
+import scipy as sc
+import matplotlib
+import sklearn
+
+import csv
+
+#upload cvs file 
+
+data = pd.read_csv("Office.csv")
+data.to_csv('out.csv')
+#print data
+print data 
+#characterise the dataset - number of columns and rows 
+print data.describe()
+print data.hist () 
+
+#create two rows with random values within [0-100]range
+#number of values should match length of the columns in the imported data dataset
+x = np.random.random(43)
+x=x*100
+y = np.random.random(43)
+y=y*100 
+z=x+y
+ZZ =np.arange(43)
+print ZZ
+
+#combine X, Y, Z, ZZ and craete a new dataset: 
+data3 = np.array( list(zip(x,y,z)))
+#combine two datasets
+data4=np.c_[ data, data3]
+
+#relabel data
+column_labels = ['Z', 'Y', 'X', 'W', 'H', 'K', 'TTT', 'PP', "tt"]
+
+	
+#combine labels and data4
+df = pd.DataFrame(data4, columns=column_labels)
+
+# #add a column with manually entered values and a label using dataframe function: 
+# df = pd.DataFrame({'A': 'foo bar foo bar foo bar foo foo'.split(),
+#                    'B': 'one one two three two two one three'.split(),
+#                    'C': np.arange(8), 'D': np.arange(8) * 2})
+print df
+
+
+#select Units column and save it as a new dataset
+AAA = df[(df.TTT < 20) & (df.PP < 60)]
+
+#print results
+import matplotlib.pyplot as plt
+plt.plot(AAA.K[:],AAA.PP[:])
+#plt.ylabel('some numbers')
+plt.show()
+
+
+
+#select units row first 10 rows
+bb=df.H[0:19]
+
+# select the first 5 rows (rows 0,1,2,3,4)
+df.H[:5]
+# select the last element in the list
+df.H[-1:]
+# set the first three rows of data in the DF to 0
+df.H[0:3] = 0
+
+#select data for customers with number of units >50 and unit price <$10
+#plot results 
+
+#export cvs file 
+df.to_csv('out_DF.csv')
+
+
